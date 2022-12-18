@@ -11,16 +11,16 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 
-@Controller('image')
+@Controller('images')
 export class ImageController {
   constructor(private readonly imageService: ImageService) {}
-  @Post()
+  @Post('add')
   @UseGuards(TokenGuard)
   @UsePipes(ValidationPipe)
   async test(@Body() body: UploadImageDto) {
     return this.imageService.uploadImage(body.imageUrl);
   }
-  @Get()
+  @Post()
   @UseGuards(TokenGuard)
   async getAllImages() {
     return this.imageService.getAllImages();
