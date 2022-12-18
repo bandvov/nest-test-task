@@ -8,6 +8,8 @@ export default function UploadForm() {
   const [error, setError] = useState<boolean>(false);
 
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setMessage("");
+    setError(false);
     setImageUrl(e.target.value);
   };
   const submitHandler = (e: React.MouseEvent<HTMLFormElement>) => {
@@ -34,7 +36,7 @@ export default function UploadForm() {
       <h3>Відправити фото</h3>
       <input onChange={changeHandler} value={imageUrl} />
       <div className="error-wrapper">
-        {error && <span className={error ? "error" : ""}>{message}</span>}
+        {<span className={error ? "error" : ""}>{message}</span>}
       </div>
       <button type="submit">Завантажити</button>
     </form>
