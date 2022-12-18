@@ -5,6 +5,7 @@ import {
   Body,
   Controller,
   Get,
+  Param,
   Post,
   UseGuards,
   UsePipes,
@@ -24,5 +25,9 @@ export class ImageController {
   @UseGuards(TokenGuard)
   async getAllImages() {
     return this.imageService.getAllImages();
+  }
+  @Get(':name')
+  getImage(@Param('name') name: string) {
+    return this.imageService.getImage(name);
   }
 }

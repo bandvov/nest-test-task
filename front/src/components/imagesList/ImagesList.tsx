@@ -21,7 +21,7 @@ export default function ImagesList() {
       <ol>
         {images.map((imageObj: { name: string }) => {
           return (
-            <li>
+            <li key={imageObj.name}>
               <Link to={"/images/" + imageObj.name}>{imageObj.name}</Link>
             </li>
           );

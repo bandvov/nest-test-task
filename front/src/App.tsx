@@ -1,6 +1,7 @@
 import React, { ReactElement } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ImagesList from "./components/imagesList/ImagesList";
+import SingleImage from "./components/SingleImage";
 import UploadForm from "./components/uploadForm/UploadForm";
 
 const routes: { path: string; element: ReactElement }[] = [
@@ -9,6 +10,7 @@ const routes: { path: string; element: ReactElement }[] = [
     element: <UploadForm />,
   },
   { path: "/images", element: <ImagesList /> },
+  { path: "/images/:name", element: <SingleImage /> },
 ];
 function App() {
   return (

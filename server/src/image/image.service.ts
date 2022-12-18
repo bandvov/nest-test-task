@@ -4,12 +4,15 @@ import {
   HttpException,
   Injectable,
   InternalServerErrorException,
+  StreamableFile,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import axios from 'axios';
 import * as fs from 'fs';
 import * as path from 'path';
+import { join } from 'path';
+
 @Injectable()
 export class ImageService {
   constructor(
@@ -59,5 +62,9 @@ export class ImageService {
   }
   async getAllImages() {
     return this.imageModel.find().exec();
+  }
+  getImage(name: string): StreamableFile {
+    const file = fs.createReadStream(join(process.cwd(), 'uploads', name));
+    return new StreamableFile(file);
   }
 }
