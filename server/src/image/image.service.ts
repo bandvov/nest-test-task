@@ -1,3 +1,4 @@
+import { checkFileAlreadyAdded } from './../utils/checkFileAlreadyAdded';
 import { Image, ImageDocument } from './../schemas/image.schema';
 import {
   HttpException,
@@ -16,9 +17,16 @@ export class ImageService {
   ) {}
   async uploadImage(imageUrl: string) {
     const fileName = imageUrl.match(/[\w-]+.(jpg|png|svg)/g)[0];
-    const writer = fs.createWriteStream(
-      path.join(process.cwd(), 'uploads', fileName),
-    );
+
+    const filePath = path.join(process.cwd(), 'uploads', fileName);
+
+    const fileAlreadyAdded = checkFileAlreadyAdded(fileName);
+
+    if (fileAlreadyAdded) {
+      throw new HttpException('File already added', 400);
+    }
+
+    const writer = fs.createWriteStream(filePath);
 
     const streamResponse = await axios({
       url: imageUrl,
@@ -27,6 +35,7 @@ export class ImageService {
     });
 
     streamResponse.data.pipe(writer);
+
     return new Promise((resolve, reject) => {
       writer.on('finish', () => {
         console.log('Finished');
@@ -36,7 +45,6 @@ export class ImageService {
             resolve('Image uploaded');
           })
           .catch((e) => {
-            console.log(e);
             if (e?.message.includes('E1100')) {
               reject(new HttpException('Image already added', 400));
             }
