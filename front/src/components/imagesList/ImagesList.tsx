@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function ImagesList() {
   const [images, setImages] = useState([]);
@@ -19,7 +20,11 @@ export default function ImagesList() {
       <h3>Список завантажених фото</h3>
       <ol>
         {images.map((imageObj: { name: string }) => {
-          return <li>{imageObj.name}</li>;
+          return (
+            <li>
+              <Link to={"/images/" + imageObj.name}>{imageObj.name}</Link>
+            </li>
+          );
         })}
       </ol>
     </>

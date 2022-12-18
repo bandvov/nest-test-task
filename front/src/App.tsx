@@ -8,7 +8,7 @@ const routes: { path: string; element: ReactElement }[] = [
     path: "/",
     element: <UploadForm />,
   },
-  { path: "/list", element: <ImagesList /> },
+  { path: "/images", element: <ImagesList /> },
 ];
 function App() {
   return (
