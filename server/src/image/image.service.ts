@@ -49,4 +49,7 @@ export class ImageService {
       });
     });
   }
+  async getAllImages() {
+    return this.imageModel.find().exec();
+  }
 }
