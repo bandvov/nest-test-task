@@ -12,11 +12,8 @@ export class IsImageValidatorConstraint
   implements ValidatorConstraintInterface
 {
   async validate(url: string) {
-    const acceptExtentions = ['.jpg', '.png', '.svg'];
-    const isUrl = acceptExtentions.some((extention) =>
-      url?.endsWith(extention),
-    );
-    return isUrl;
+    const isUrl = url.match(/[\w-]+.(jpg|png|svg)/g);
+    return !!isUrl;
   }
 
   defaultMessage(): string {
