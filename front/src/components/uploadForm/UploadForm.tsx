@@ -18,7 +18,7 @@ export default function UploadForm() {
     setMessage("");
     setError(false);
     axios
-      .post("http://localhost:3001/image", {
+      .post(process.env.REACT_APP_API_URL + "/images/add", {
         imageUrl,
         token: process.env.REACT_APP_TOKEN,
       })
